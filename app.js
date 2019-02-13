@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 
 
-const adminRoutes = require('./routes/admin');
+const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 const app = express();
@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // this will add "/admin" to the beginning of all adminRoutes routes
-app.use('/admin', adminRoutes);
+app.use('/admin', adminData.routes);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
