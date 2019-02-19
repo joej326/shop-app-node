@@ -6,6 +6,7 @@ const expressHbs = require('express-handlebars');
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const cartRoutes = require('./routes/cart');
 
 const errorController = require('./controllers/404');
 
@@ -21,6 +22,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // this will add "/admin" to the beginning of all adminRoutes routes
 app.use('/admin', adminRoutes.routes);
+app.use('/cart', cartRoutes);
 app.use(shopRoutes);
 
 app.use(errorController.get404);
