@@ -12,8 +12,8 @@ const errorController = require('./controllers/404');
 const app = express();
 
 // app.engine('hbs', expressHbs());
-app.set('view engine', 'pug'); // app.set() allows us to set a global variable for express. We use it here to establish dynamic tamplates.
-// app.set('views', 'views');  // the "views" property is used to point to the dir w/ the templates. It's already ~/views by default so this line is omitted.
+app.set('view engine', 'ejs'); // app.set() allows us to set a global variable for express. We use it here to establish dynamic tamplates.
+app.set('views', 'views');  // the "views" property is used to point to the dir w/ the templates. It's already ~/views by default so this line is omitted.
 
 app.use(bodyParser.urlencoded({extended: false})); // urlencoded has the next() functionality built in. Extended added b/c console complains
 app.use(express.static(path.join(__dirname, 'public')));
