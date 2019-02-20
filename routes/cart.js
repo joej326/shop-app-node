@@ -5,7 +5,7 @@ const router = express.Router();
 
 // TODO need to outsource to controller
 router.get('/', (req, res) => {
-    res.send('success');
+    res.render('shop/cart', {docTitle: 'caaaaaart', path: '/cart'});
 }); 
 
 

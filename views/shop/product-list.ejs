@@ -16,20 +16,21 @@
           </header>
           <div class="card__image">
             <img
-              src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Tick_Mark_Dark-512.png"
+              src="<%= product.imageUrl %>"
               style="width: 7vw; display: block; margin: 0 auto;"
-              alt="A Book"
+              alt="<%= product.title %>"
             />
           </div>
           <div class="card__content">
-            <h2 class="product__price">$19.99</h2>
+            <h2 class="product__price">$<%= product.price %></h2>
             <p class="product__description">
-              A very interesting book about so many even more interesting
-              things!
+                <%= product.description %>
             </p>
           </div>
           <div class="card__actions">
-            <button class="btn">Add to Cart</button>
+            <form action="/add-to-cart" method="POST">
+              <button class="btn">Add to Cart</button>
+            </form>
           </div>
         </article>
       <%  } %>
