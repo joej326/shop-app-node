@@ -17,6 +17,16 @@ exports.getProducts = (req, res, next) => {
 };              // NOTE: the "pug" comments are no longer relevant in this app b/c we switched to ejs.
 
 
+exports.getProduct = (req, res) => {
+    const prodId = req.params.id;
+    const productCallback = (product) => console.log('product:', product);
+
+    Product.findById(prodId, productCallback);
+    console.log(prodId);
+    res.redirect('/');
+};
+
+
 exports.getIndex = (req, res) => {
     
     Product.fetchAll((products) => {

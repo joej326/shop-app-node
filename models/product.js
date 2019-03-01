@@ -25,6 +25,7 @@ module.exports = class Product {
     
 
     save() {
+        this.id = Math.random().toString();
         getProductsFromFile((products) => {
             products.push(this); // "this" refers to the class ^^^^
             fs.writeFile(productsPath, JSON.stringify(products), err => {
@@ -42,6 +43,13 @@ module.exports = class Product {
     // static makes it so it will always be called from this class and not other instances.
     static fetchAll(callback) {
         getProductsFromFile(callback);
+    }
+
+    static findById(id, callback) {
+        getProductsFromFile((products) => {
+            const product = products.find((p) => p.id === id);
+            callback(product);
+        });
     }
 
 };
