@@ -2,6 +2,7 @@
 // in this case our products require logic so we make a products controller.
 
 const Product = require('../models/product'); // note that this is a class
+const Cart = require('../models/cart');
 
 
 
@@ -19,11 +20,18 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res) => {
     const prodId = req.params.id;
-    const productCallback = (product) => console.log('product:', product);
+    const productCallback = (product) => {
+        res.render(
+            'shop/product-detail', 
+            {
+                product, 
+                docTitle: product.title,
+                path: '/products'
+            }
+        );
+    };
 
     Product.findById(prodId, productCallback);
-    console.log(prodId);
-    res.redirect('/');
 };
 
 
@@ -38,6 +46,14 @@ exports.getIndex = (req, res) => {
 
 exports.getCart = (req, res) => {
     res.render('shop/product-list', {prods: products, docTitle: 'Your Cart', path: '/'});
+};
+
+exports.postCart = (req, res) => {
+    const productId = req.body.productId;
+    Product.findById(productId, (product) => {
+        Cart.addProduct(productId, product.price);
+    });
+    res.redirect('/cart');
 };
 
 
