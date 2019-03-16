@@ -8,7 +8,7 @@ const getProductsFromFile = (callback) => {
         if (err) {
             return callback([]) // had to add a callback to deal with asychronous code. We were getting length of undefined before.
         } else {
-            callback(JSON.parse(fileContent));
+            callback(JSON.parse(fileContent)); // should there be return here??
         }
     })
 };
