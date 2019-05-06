@@ -6,9 +6,9 @@ const productsPath = path.join(path.dirname(process.mainModule.filename), 'data'
 const getProductsFromFile = (callback) => {
     fs.readFile(productsPath, (err, fileContent) => {
         if (err) {
-            return callback([]) // had to add a callback to deal with asychronous code. We were getting length of undefined before.
+            callback([]) // had to add a callback to deal with asychronous code. We were getting length of undefined before.
         } else {
-            callback(JSON.parse(fileContent)); // should there be return here??
+            callback(JSON.parse(fileContent)); 
         }
     })
 };
