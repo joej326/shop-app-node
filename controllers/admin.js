@@ -7,7 +7,8 @@ exports.getAddProduct = (req, res, next) => {
     res.render('admin/edit-product', 
         {
             docTitle: 'Add Product',
-            path: '/admin/add-product'
+            path: '/admin/add-product',
+            editing: false
         }
     );
 };
@@ -34,19 +35,26 @@ exports.getEditProduct = (req, res, next) => {
     if (!editMode) {
         return res.redirect('/');
     }
-
-    res.render('admin/edit-product', 
-        {
-            docTitle: 'Edit Product',
-            path: '/admin/edit-product',
-            editing: editMode
+    const prodId = req.params.productId;
+    Product.findById(prodId, (product) => {
+        if (!product) {
+            return res.redirect('/');
         }
-    );
+        res.render('admin/edit-product', 
+            {   
+                docTitle: 'Edit Product',
+                path: '/admin/edit-product',
+                editing: editMode,
+                product
+            }
+        );
+    });
+
+    
 };
 
 
 exports.getProducts = (req, res) => {
-    console.log('get all products ran');
     Product.fetchAll((products) => {
         res.render('admin/products-list-admin', {prods: products, docTitle: 'Admin Products', path: '/admin/products'}); 
     });
