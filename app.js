@@ -35,4 +35,4 @@ app.use(errorController.get404);
 // server.listen(3003, () => console.log('running'));
 
 // SHORT WAY:
-app.listen(3003, () => console.log('running'));
+app.listen(3003, () => console.log('running on 3003'));
