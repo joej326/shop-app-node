@@ -4,18 +4,13 @@ const Product = require('../models/product'); // note that this is a class
 // this function is exported to admin.js as the second arguemtns of the /add-product route
 exports.getAddProduct = (req, res, next) => {
 
-    // __dirname way:
-    // res.sendFile(path.join(__dirname, '..', 'views', 'add-product.html')); 
-
-    // rootDir way
-    // res.sendFile(path.join(rootDir, 'views', 'add-product.html')); 
     res.render('admin/edit-product', 
         {
             docTitle: 'Add Product',
-            path: '/admin/add-product'
+            path: '/admin/add-product',
+            editing: false
         }
     );
-
 };
 
 
@@ -28,24 +23,36 @@ exports.postAddProduct =  (req, res, next) => {
     const product = new Product(title, imageUrl, description, price);
     product.save();
     res.redirect('/');
-
 };
+
 
 exports.getEditProduct = (req, res, next) => {
+    console.log('get edit product contoller called')
 
-    // __dirname way:
-    // res.sendFile(path.join(__dirname, '..', 'views', 'add-product.html')); 
+    const editMode = req.query.edit;
+    console.log('get edit product contoller called')
 
-    // rootDir way
-    // res.sendFile(path.join(rootDir, 'views', 'add-product.html')); 
-    res.render('admin/edit-product', 
-        {
-            docTitle: 'Add Product',
-            path: '/admin/add-product'
+    if (!editMode) {
+        return res.redirect('/');
+    }
+    const prodId = req.params.productId;
+    Product.findById(prodId, (product) => {
+        if (!product) {
+            return res.redirect('/');
         }
-    );
+        res.render('admin/edit-product', 
+            {   
+                docTitle: 'Edit Product',
+                path: '/admin/edit-product',
+                editing: editMode,
+                product
+            }
+        );
+    });
 
+    
 };
+
 
 exports.getProducts = (req, res) => {
     Product.fetchAll((products) => {
